@@ -7,8 +7,9 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.pixiRoot = null;
+    let resolution = Math.min((window.innerWidth-200)/432, (window.innerHeight-200)/304);
     this.state = {
-      app: new PIXI.Application({width: 432, height: 304, transparent:false})
+      app: new PIXI.Application({width: 432, height: 304, resolution: resolution})
     };
   }
 
@@ -62,29 +63,56 @@ class Game extends React.Component {
 
   onAssetsLoaded = (loader, resources) => {
     // We will create a sprite and then add it to stage and (0,0) position
-    let textures = resources.spritesheet.textures;
-    let animations = resources.spritesheet.spritesheet.animations;
+    const textures = resources.spritesheet.textures;
+    const animations = resources.spritesheet.spritesheet.animations;
+    const app = this.state.app;
     const pikas = ["pika_walk", "pika_jump", "pika_attack", "pika_dive", "pika_win", "pika_lose"];
     this.pikas = {};
+    const width = app.screen.width;
+    const height = app.screen.height;
+
+    // background
+    let bg = new PIXI.TilingSprite(textures.bg00, width, 32);
+    bg.y = height - 16*2;
+    app.stage.addChild(bg);
+    const left = new PIXI.Sprite(textures.bg01a);
+    left.y = height - 16*3;
+    app.stage.addChild(left);
+    bg = new PIXI.TilingSprite(textures.bg01b, width-32, 16);
+    bg.y = height - 16*3;
+    bg.x = 16;
+    app.stage.addChild(bg);
+    const right = new PIXI.Sprite(textures.bg01c);
+    right.y = height - 16*3;
+    right.x = 16*26;
+    app.stage.addChild(right);
+    bg = new PIXI.TilingSprite(textures.bg02, app.screen.width, 16);
+    bg.y = height - 16*4;
+    app.stage.addChild(bg);
+    bg = new PIXI.Sprite(textures.bg03);
+    bg.y = height - 16*4 -72;
+    app.stage.addChild(bg);
+    bg = new PIXI.TilingSprite(textures.bg04, width, height - 16*4 -72);
+    app.stage.addChild(bg);
 
     pikas.forEach(i => {
       let p = new PIXI.AnimatedSprite(animations[i]);
       p.animationSpeed = 0.3;
       p.play();
       p.visible = false;
-      this.state.app.stage.addChild(p);
+      app.stage.addChild(p);
       this.pikas[i] = p;
     });
     this.pika = this.pikas['pika_walk'];
-    this.pika.vx = 0;
     this.pika.visible = true;
 
     this.ball = new PIXI.AnimatedSprite(animations['ball']);
     this.ball.animationSpeed = 0.1;
     this.ball.play();
-    this.state.app.stage.addChild(this.ball)
+    app.stage.addChild(this.ball)
 
-    this.state.app.ticker.add(delta => this.gameLoop(delta));
+
+    app.ticker.add(delta => this.gameLoop(delta));
   };
 
   gameLoop = () => {
