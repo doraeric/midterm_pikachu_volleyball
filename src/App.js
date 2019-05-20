@@ -51,7 +51,7 @@ class App extends Component {
       console.log('reconnect_failed');
     });
 
-    //對 getMessage 設定監聽，如果 server 有透過 getMessage 傳送訊息，將會在此被捕捉
+    // Custom situation
     socket.on('getMessage', message => {
       console.log(message)
     });
@@ -61,8 +61,22 @@ class App extends Component {
     socket.on('leaveRoom', message => {
       console.log(message)
     });
+    socket.on('loadGame', message => {
+      this.setState({'gamemode': message});
+    });
+    socket.on('room', data => {
+      if (this.state.gamemode === 'online-player1') {
+        this.pos.pika2 = data;
+      } else if (this.state.gamemode === 'online-player2') {
+        this.pos.pika2 = data.pika2;
+        this.pos.ball = data.ball;
+      }
+    });
   }
 
+  setupPos =  (pos) => {
+    this.pos = pos;
+  }
   functions = {
     connectSocket: (url) => {
       this.setState((state) => {
@@ -100,9 +114,11 @@ class App extends Component {
     }
   }
   render() {
-    return (
-      <MainUI functions={ this.functions } url={ this.url } connected={this.state.connected} />
-    );
+    if (this.state.gamemode.includes('online-player')) {
+      return <Game player={this.state.gamemode} socket={this.state.socket} setupPos={this.setupPos} />;
+    } else {
+      return <MainUI functions={ this.functions } url={ this.url } connected={this.state.connected} />;
+    }
   }
 }
 

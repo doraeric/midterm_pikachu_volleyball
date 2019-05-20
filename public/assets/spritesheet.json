@@ -11,6 +11,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "bg03":
@@ -27,6 +28,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika51":
@@ -35,6 +37,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika50":
@@ -43,6 +46,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika44":
@@ -51,6 +55,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika54":
@@ -59,6 +64,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika43":
@@ -67,6 +73,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika42":
@@ -75,6 +82,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika11":
@@ -83,6 +91,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika41":
@@ -91,6 +100,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika40":
@@ -99,6 +109,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika32":
@@ -107,6 +118,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika31":
@@ -115,6 +127,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika30":
@@ -123,6 +136,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika53":
@@ -131,6 +145,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika23":
@@ -139,6 +154,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika22":
@@ -147,6 +163,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika21":
@@ -155,6 +172,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika20":
@@ -163,6 +181,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika14":
@@ -171,6 +190,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika13":
@@ -179,6 +199,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika00":
@@ -187,6 +208,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika01":
@@ -195,6 +217,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika02":
@@ -203,6 +226,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika03":
@@ -211,6 +235,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika04":
@@ -219,6 +244,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "pika10":
@@ -227,6 +253,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         },
         "bg08":
@@ -251,6 +278,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "ball11":
@@ -259,6 +287,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "ball00":
@@ -267,6 +296,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "ball02":
@@ -275,6 +305,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "ball03":
@@ -283,6 +314,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "ball01":
@@ -291,6 +323,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "ball04":
@@ -299,6 +332,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":40,"h":40},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":40,"h":40}
         },
         "hit":
@@ -459,6 +493,7 @@
             "rotated": false,
             "trimmed": false,
             "spriteSourceSize": {"x":0,"y":0,"w":64,"h":64},
+            "anchor": {"x":0.5,"y":0.5},
             "sourceSize": {"w":64,"h":64}
         }
     },

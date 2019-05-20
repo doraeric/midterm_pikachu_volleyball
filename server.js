@@ -36,6 +36,9 @@ io.on('connection', socket => {
       addRoom(socket, random, player);
     }
   });
+  socket.on('room', (data) => {
+    socket.to(socket.gameRoom).emit('room', data);
+  });
 
   socket.on('disconnecting', () => {
     leaveRoom(socket);
@@ -62,9 +65,17 @@ io.on('connection', socket => {
       } else {
         socket.join(room);
         socket.name = player;
+        socket.gameRoom = room;
         io.sockets.in(room).emit('addRoom', `${player} 已加入聊天室！`);
         const len = io.sockets.adapter.rooms[room].length;
         io.sockets.in(room).emit('addRoom', `目前 ${len} 人`);
+        if (len === 1) {
+          io.sockets.adapter.rooms[room].host = socket;
+        } else {
+          let host = io.sockets.adapter.rooms[room].host;
+          host.to(room).emit('loadGame', 'online-player2');
+          host.emit('loadGame', 'online-player1');
+        }
       }
     }
   };

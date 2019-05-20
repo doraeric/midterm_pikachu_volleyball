@@ -44,3 +44,9 @@ export function keyboard(value) {
 
   return key;
 }
+export function rectCollide(a, b) {
+  return !(a.x1>b.x2 || a.x2<b.x1 || a.y1>b.y2 || a.y2<b.y1);
+}
+export function toRect(center, w, h) {
+  return {x1: center.x-w/2, x2: center.x+w/2, y1: center.y-h/2, y2: center.y+h/2};
+}
