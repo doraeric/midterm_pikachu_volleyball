@@ -13,14 +13,50 @@ class Game extends React.Component {
     this.state = {
       app: new PIXI.Application({width: 432, height: 304, resolution: resolution})
     };
-    this.pos = {
-      'pika': {x: this.props.player === 'online-player1' ? 36: 394, y: 232, vx: 0, vy: 0},
-      'pika2': {x: this.props.player === 'online-player2' ? 36: 394, y: 232},
-      'ball' : {x: 36, y: cfg.ballh/2, vx: 0, vy: 0, ax: 0, ay: .1}
-    };
-    this.props.setupPos(this.pos);
+    this.pos = {};
+    this.resetPos(this.pos);
+    this.score = [0, 0];
+    this.scoreSprite = [null, null];
+    this.props.setupGame(this.pos, this.resetPos, this.setScore);
   }
 
+  componentWillUnmount() {
+    PIXI.Loader.shared.reset();
+  }
+
+  setScore = (data) => {
+    this.score = data;
+    for (let i=0; i<2; i++) {
+      this.scoreSprite[i].texture = PIXI.Loader.shared.resources.spritesheet.textures[`digit${this.score[i]}`];
+    }
+    if (data[0]===9||data[1]===9) {
+      if ((this.props.player === 'online-player1' && data[0] === 9) ||
+        (this.props.player === 'online-player2' && data[1] === 9)) {
+        this.pika.visible = false;
+        this.pika = this.pikas['pika_win'];
+        this.pika.visible = true;
+        this.pika2.visible = false;
+        this.pika2 = this.pikas['pika_lose'].other;
+        this.pika2.visible = true;
+        this.pika.gotoAndPlay(0);
+        this.pika2.gotoAndPlay(0);
+      } else {
+        this.pika.visible = false;
+        this.pika = this.pikas['pika_lose'];
+        this.pika.visible = true;
+        this.pika2.visible = false;
+        this.pika2 = this.pikas['pika_win'].other;
+        this.pika2.visible = true;
+        this.pika.gotoAndPlay(0);
+        this.pika2.gotoAndPlay(0);
+      }
+    }
+  }
+  resetPos = (pos) => {
+    pos.pika = {x: this.props.player === 'online-player1' ? 36: 394, y: 232, vx: 0, vy: 0, ay: .8};
+    pos.pika2 = {x: this.props.player === 'online-player2' ? 36: 394, y: 232};
+    pos.ball = {x: 36, y: cfg.ballh/2, vx: 0, vy: 0, ax: 0, ay: .3};
+  }
   updatePixiRoot = (element) => {
     // the element is the DOM object that we will use as container to add pixi stage(canvas)
     this.pixiRoot = element;
@@ -62,6 +98,8 @@ class Game extends React.Component {
     up.press = () => {
       this.pika.visible = false;
       this.pika = this.pikas["pika_jump"];
+      if (this.pos.pika.y >= cfg.ground-cfg.pikah/2)
+        this.pos.pika.vy = -16;
       this.pika.visible = true;
     }
     up.release = () => {
@@ -123,6 +161,12 @@ class Game extends React.Component {
       p2.play();
       p1.visible = false;
       p2.visible = false;
+      if (i === 'pika_win' || i === 'pika_lose') {
+        p1.loop = false;
+        p2.loop = false;
+        p1.animationSpeed = 0.05;
+        p2.animationSpeed = 0.05;
+      }
       app.stage.addChild(p1);
       app.stage.addChild(p2);
       if (this.props.player === 'online-player1') {
@@ -143,13 +187,24 @@ class Game extends React.Component {
     this.ball.play();
     app.stage.addChild(this.ball)
 
+    for (let i=0; i<2; i++) {
+      this.scoreSprite[i] = new PIXI.Sprite(textures.digit0);
+      this.scoreSprite[i].x = 56 +i*288;
+      this.scoreSprite[i].y = 12;
+      app.stage.addChild(this.scoreSprite[i]);
+    }
 
     app.ticker.add(delta => this.gameLoop(delta));
+    this.props.socket.emit('round-start');
   };
 
   gameLoop = () => {
     let {pika, pika2, ball} = this.pos;
-    pika.x += pika.vx*5;
+    pika.x += pika.vx*3.5;
+    pika.vy += pika.ay;
+    pika.y += pika.vy;
+    if (pika.y > cfg.ground-cfg.pikah/2)
+      pika.y = cfg.ground-cfg.pikah/2;
     if (this.props.player === 'online-player1') {
       if (pika.x < cfg.pikaw/2)
         pika.x = cfg.pikaw/2;
@@ -172,6 +227,19 @@ class Game extends React.Component {
       } else if (ball.y > cfg.ground-cfg.ballh/2) {
         ball.vy *= -.9;
         ball.y = cfg.ground-cfg.ballh/2;
+        if (!(this.score[0]===9 || this.score[1]===9)) {
+          if (ball.x < cfg.appw/2)
+            this.score[1]++;
+          else
+            this.score[0]++;
+          this.setScore(this.score);
+          this.props.socket.emit('score', this.score);
+          this.props.socket.emit('round-end');
+          if (!(this.score[0]===9 || this.score[1]===9)) {
+            this.resetPos(this.pos);
+            this.props.socket.emit('round-start');
+          }
+        }
       }
       let pole_ball = new Vector2(ball.x-cfg.appw, ball.y-cfg.poleTop);
       if (pole_ball.length < cfg.ballw/2 && ball.y < cfg.poleTop) {
@@ -195,7 +263,7 @@ class Game extends React.Component {
       if (rectCollide(pikaRect, ballRect) || rectCollide(pika2Rect, ballRect)) {
         let vec = rectCollide(pikaRect, ballRect) ?
           new Vector2(ball.x-pika.x, ball.y-pika.y) : new Vector2(ball.x-pika2.x, ball.y-pika2.y);
-        vec.normalize().multiplyScalar(6);
+        vec.normalize().multiplyScalar(10);
         ball.vx = vec.x;
         ball.vy = vec.y;
       }

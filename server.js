@@ -39,6 +39,15 @@ io.on('connection', socket => {
   socket.on('room', (data) => {
     socket.to(socket.gameRoom).emit('room', data);
   });
+  socket.on('score', data => {
+    socket.to(socket.gameRoom).emit('score', data);
+  });
+  socket.on('round-start', () => {
+    socket.to(socket.gameRoom).emit('round-start');
+  });
+  socket.on('round-end', () => {
+    socket.to(socket.gameRoom).emit('round-end');
+  });
 
   socket.on('disconnecting', () => {
     leaveRoom(socket);

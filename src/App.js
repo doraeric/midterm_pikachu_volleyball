@@ -60,6 +60,7 @@ class App extends Component {
     });
     socket.on('leaveRoom', message => {
       console.log(message)
+      this.setState({gamemode: 'none'});
     });
     socket.on('loadGame', message => {
       this.setState({'gamemode': message});
@@ -72,10 +73,18 @@ class App extends Component {
         this.pos.ball = data.ball;
       }
     });
+    socket.on('score', data => {
+      this.setScore(data);
+    });
+    socket.on('round-start', () => {
+      this.resetPos(this.pos);
+    });
   }
 
-  setupPos =  (pos) => {
+  setupGame =  (pos, resetPos, setScore) => {
     this.pos = pos;
+    this.resetPos = resetPos;
+    this.setScore = setScore;
   }
   functions = {
     connectSocket: (url) => {
@@ -115,7 +124,7 @@ class App extends Component {
   }
   render() {
     if (this.state.gamemode.includes('online-player')) {
-      return <Game player={this.state.gamemode} socket={this.state.socket} setupPos={this.setupPos} />;
+      return <Game player={this.state.gamemode} socket={this.state.socket} setupGame={this.setupGame} />;
     } else {
       return <MainUI functions={ this.functions } url={ this.url } connected={this.state.connected} />;
     }
