@@ -39,3 +39,7 @@
   border-radius: 50%;
   display: inline-block;
 }
+
+.main-ui span {
+    color: white;
+}

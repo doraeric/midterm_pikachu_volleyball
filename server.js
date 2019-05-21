@@ -10,7 +10,6 @@ const server = require('http').Server(app)
 //將啟動的 Server 送給 socket.io 處理
 const io = require('socket.io')(server);
 
-let random = undefined;
 //監聽 Server 連線後的所有事件，並捕捉事件 socket 執行
 io.on('connection', socket => {
   //經過連線後在 console 中印出訊息
@@ -28,13 +27,7 @@ io.on('connection', socket => {
     leaveRoom(socket);
   })
   socket.on('randomRoom', (player) => {
-    if (random && io.sockets.adapter.rooms[random]) {
-      addRoom(socket, random, player);
-      random = undefined;
-    } else {
-      random = Math.random();
-      addRoom(socket, random, player);
-    }
+    addRoom(socket, randomRoom(), player);
   });
   socket.on('room', (data) => {
     socket.to(socket.gameRoom).emit('room', data);
@@ -56,7 +49,21 @@ io.on('connection', socket => {
     console.log('disconnection');
   })
 
+  randomRoom = () => {
+    if (!this._r) {
+      this._r = makeid(6);
+    } else {
+      let room = io.sockets.adapter.rooms[this._r];
+      if (!room || room.length <= 1) {
+      } else {
+        this._r = makeid(6);
+      }
+    }
+    return this._r;
+  }
   addRoom = (socket, room, player) => {
+    if (!room)
+      room = randomRoom();
     const rooms = Object.keys(socket.rooms).find(r =>{
       return r !== socket.id && r !== room;
     })
@@ -100,3 +107,12 @@ io.on('connection', socket => {
     }
   };
 })
+function makeid(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}

@@ -7,9 +7,8 @@ import io from 'socket.io-client'
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {socket: null, connected: false, gamemode: 'none'};
+    this.state = {socket: null, connected: false, gamemode: 'none', inroom: false, room: undefined, name: 'Anonymous'};
     this.url = 'http://localhost:3001';
-    this.name = 'Anonymous';
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -26,8 +25,9 @@ class App extends Component {
       console.log('connect');
     });
     socket.on('disconnect', (reason) => {
-      this.setState({connected: false});
       console.log('disconnect: ' + reason);
+      if (!(reason === 'io client disconnect'))
+        this.setState({connected: false});
       if (reason === 'io server disconnect') {
         // the disconnection was initiated by the server, you need to reconnect manually
         socket.connect();
@@ -56,11 +56,12 @@ class App extends Component {
       console.log(message)
     });
     socket.on('addRoom', message => {
+      this.setState({inroom: true});
       console.log(message)
     });
     socket.on('leaveRoom', message => {
       console.log(message)
-      this.setState({gamemode: 'none'});
+      this.setState({gamemode: 'none', inroom: false});
     });
     socket.on('loadGame', message => {
       this.setState({'gamemode': message});
@@ -87,10 +88,23 @@ class App extends Component {
     this.setScore = setScore;
   }
   functions = {
-    connectSocket: (url) => {
+    connectSocket: () => {
       this.setState((state) => {
         if (state.socket === null)
-          return {socket: io(url)};
+          return {socket: io(this.url)};
+        else {
+          state.socket.disconnect();
+          return {socket: io(this.url)};
+        }
+      });
+    },
+    disconnect: () => {
+      this.setState(state => {
+        if (state.socket) {
+          state.socket.disconnect();
+          return {socket: null, connected: false, inroom: false};
+        }
+        return {};
       });
     },
     sendMessage: () => {
@@ -101,11 +115,11 @@ class App extends Component {
       this.url = url;
     },
     setRoom: (text) => {
-      this.room = text;
+      this.setState({room: text});
     },
     enterRoom: () => {
       if (this.state.socket) {
-        this.state.socket.emit('addRoom', {'room': this.room, 'player': this.name});
+        this.state.socket.emit('addRoom', {'room': this.state.room, 'player': this.state.name});
       }
     },
     leaveRoom: () => {
@@ -114,19 +128,23 @@ class App extends Component {
       }
     },
     setName: (text) => {
-      this.name = text;
+      this.setState({name: text});
     },
     randomRoom: () => {
       if (this.state.socket) {
-        this.state.socket.emit('randomRoom', this.name);
+        this.state.socket.emit('randomRoom', this.state.name);
       }
     }
   }
   render() {
     if (this.state.gamemode.includes('online-player')) {
-      return <Game player={this.state.gamemode} socket={this.state.socket} setupGame={this.setupGame} />;
+      return <div>
+        <Game player={this.state.gamemode} socket={this.state.socket} setupGame={this.setupGame} />
+        <button onClick={ this.functions.leaveRoom } >離開</button>
+      </div>;
     } else {
-      return <MainUI functions={ this.functions } url={ this.url } connected={this.state.connected} />;
+      return <MainUI functions={ this.functions } socket={this.state.socket} connected={this.state.connected} inroom={this.state.inroom}
+        room={this.state.room} name={this.state.name} url={this.url} />;
     }
   }
 }
