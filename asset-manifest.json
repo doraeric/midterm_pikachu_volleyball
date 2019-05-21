@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/midterm_pikachu_volleyball/static/css/main.8b989782.chunk.css",
+    "main.js": "/midterm_pikachu_volleyball/static/js/main.b4e0f955.chunk.js",
+    "main.js.map": "/midterm_pikachu_volleyball/static/js/main.b4e0f955.chunk.js.map",
+    "runtime~main.js": "/midterm_pikachu_volleyball/static/js/runtime~main.7cfa1605.js",
+    "runtime~main.js.map": "/midterm_pikachu_volleyball/static/js/runtime~main.7cfa1605.js.map",
+    "static/js/2.4996c8e5.chunk.js": "/midterm_pikachu_volleyball/static/js/2.4996c8e5.chunk.js",
+    "static/js/2.4996c8e5.chunk.js.map": "/midterm_pikachu_volleyball/static/js/2.4996c8e5.chunk.js.map",
+    "index.html": "/midterm_pikachu_volleyball/index.html",
+    "precache-manifest.3e38505dcde5d5d73d10bb2835e02b5a.js": "/midterm_pikachu_volleyball/precache-manifest.3e38505dcde5d5d73d10bb2835e02b5a.js",
+    "service-worker.js": "/midterm_pikachu_volleyball/service-worker.js",
+    "static/css/main.8b989782.chunk.css.map": "/midterm_pikachu_volleyball/static/css/main.8b989782.chunk.css.map"
+  }
+}
